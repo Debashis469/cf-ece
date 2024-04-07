@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Leaderboard styles */
+        .leaderboard {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .leaderboard th, .leaderboard td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        .leaderboard th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .leaderboard tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .leaderboard tr:hover {
+            background-color: #e0e0e0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Leaderboard</h1>
+        <table class="leaderboard">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Rating</th>
+                    <th>Max Rating</th> <!-- New column added -->
+                </tr>
+            </thead>
+            <tbody id="userDataContainer">
+                <!-- User data will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Fetch userData from the /leaderboardData endpoint
+        fetch('/leaderboardData')
+            .then(response => response.json())
+            .then(userData => {
+                displayUserData(userData);
+            })
+            .catch(error => {
+                console.error('Error fetching userData:', error);
+                window.location.assign("./error_handlers/loading.html");
+            });
+
+        // Function to display user data in HTML
+        function displayUserData(userData) {
+            const container = document.getElementById("userDataContainer");
+            userData.forEach((user, index) => {
+                // Create a row for each user
+                const row = document.createElement("tr");
+
+                // Create cells for rank, username, rating, and max rating
+                const rankCell = document.createElement("td");
+                rankCell.textContent = index + 1;
+                const usernameCell = document.createElement("td");
+                usernameCell.textContent = user.user_name;
+                const ratingCell = document.createElement("td");
+                ratingCell.textContent = user.rating;
+                const maxRatingCell = document.createElement("td"); // New cell for max rating
+                maxRatingCell.textContent = user.maxRating; // Assuming this property exists in userData
+
+                // Append cells to the row
+                row.appendChild(rankCell);
+                row.appendChild(usernameCell);
+                row.appendChild(ratingCell);
+                row.appendChild(maxRatingCell); // Append max rating cell
+
+                // Append the row to the container
+                container.appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html>

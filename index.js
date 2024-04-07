@@ -101,8 +101,12 @@ app.get("/roll_err" , (req,res) => {
     res.sendFile(__dirname + "/error_handlers/err_roll.html")
 })
 
+app.get("/leaderboard" , (req,res) => {
+    res.sendFile(__dirname + "/public/leader.html") ;
+})
 
-app.get("/leaderboard", async (req, res) => {
+
+app.get("/leaderboardData", async (req, res) => {
     var users = await User.find();
     let str = "";
     let userNames=[];
@@ -131,7 +135,10 @@ app.get("/leaderboard", async (req, res) => {
         cfUsersData.sort((a, b) => b.rating - a.rating); // sorting users' data in descending order
         console.log(userNames);
         console.log(cfUsersData);
-        res.render("index.ejs", { usersData: cfUsersData });
+
+        res.json(cfUsersData) ;
+       
+        // res.render("index.ejs", { usersData: cfUsersData });
         // sending users' data obtained from API to index.ejs
 
     } catch (error) {
