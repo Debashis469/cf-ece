@@ -33,6 +33,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            overflow-x: auto; /* Horizontal scroll for small screens */
         }
 
         .leaderboard th, .leaderboard td {
@@ -53,6 +54,20 @@
             background-color: #e0e0e0;
         }
 
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .leaderboard {
+                font-size: 14px; /* Decrease font size for small screens */
+            }
+
+            .leaderboard th, .leaderboard td {
+                padding: 8px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -64,7 +79,7 @@
                     <th>Rank</th>
                     <th>Username</th>
                     <th>Rating</th>
-                    <th>Max Rating</th> <!-- New column added -->
+                    <th>Max Rating</th>
                 </tr>
             </thead>
             <tbody id="userDataContainer">
@@ -82,7 +97,6 @@
             })
             .catch(error => {
                 console.error('Error fetching userData:', error);
-                window.location.assign("./error_handlers/loading.html");
             });
 
         // Function to display user data in HTML
@@ -99,14 +113,14 @@
                 usernameCell.textContent = user.user_name;
                 const ratingCell = document.createElement("td");
                 ratingCell.textContent = user.rating;
-                const maxRatingCell = document.createElement("td"); // New cell for max rating
-                maxRatingCell.textContent = user.maxRating; // Assuming this property exists in userData
+                const maxRatingCell = document.createElement("td");
+                maxRatingCell.textContent = user.maxRating;
 
                 // Append cells to the row
                 row.appendChild(rankCell);
                 row.appendChild(usernameCell);
                 row.appendChild(ratingCell);
-                row.appendChild(maxRatingCell); // Append max rating cell
+                row.appendChild(maxRatingCell);
 
                 // Append the row to the container
                 container.appendChild(row);
