@@ -35,7 +35,9 @@ app.get("/" , (req,res) => {
     res.sendFile(__dirname + "/public/index.html") ;
 })
 
-
+app.get("/test",(req,res)=>{
+    res.send("working!");
+})
 // this is used to fetch the login page
 app.get("/login" , (req,res) => {
     res.sendFile(__dirname + "/public/login.html") ;
