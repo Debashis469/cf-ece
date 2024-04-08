@@ -3,6 +3,7 @@
 
 <head> 
 	<meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>ECE 2K23</title> 
 	 
 	<style> 
@@ -91,6 +92,34 @@
                 font-size: 14px;
             }
         } */
+
+        @media (max-width: 600px) {
+            body {
+                gap: 20px;
+            }
+            .container {
+                width: 86vw;
+            }
+            .text {
+                font-size: 1.2em; /* Increased heading size */
+                letter-spacing: 3px;
+            }
+            .button-container {
+                flex-direction: column; /* Display buttons in a column */
+            }
+            .button {
+                font-size: 20px; /* Increased button font size */
+                padding: 6px 10px; /* Increased button padding */
+                margin: 10px 0; /* Added margin between buttons */
+                width: 80%;
+                height: 50px;
+                text-align: center;
+
+                display: flex;
+                justify-content: center;
+            }
+
+        }		
 
 
         @media (min-width : 1200px) {
